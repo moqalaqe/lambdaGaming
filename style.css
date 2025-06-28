@@ -24,15 +24,23 @@ select{
     color: white;
 }
 
-.progress{
+.progressContainer{
     height: 8px;
     width: 90%;
+    border-radius: 12px;
+    background-color: #06285f;
+}
+
+.progress{
+    height: 8px;
+    width: 0px;
     border-radius: 12px;
     background-color: green;
 }
 
 .flipped {
     border: 1px dashed white;
+    pointer-events: none;
 }
 
 button{

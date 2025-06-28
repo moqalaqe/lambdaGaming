@@ -3,9 +3,11 @@ import { Square } from "./square.js";
 export class Grid {
     private squares: Square[] = [];
     private onMineClick: () => void;
+    private onSafeClick: () => void;
 
-    constructor(onMineClick?: () => void) {
+    constructor(onMineClick?: () => void, onSafeClick?: () => void ) {
         this.onMineClick = onMineClick || (() => {});
+        this.onSafeClick = onSafeClick || (() => {});
         this.generateSquareArray();
     }
 
@@ -53,7 +55,7 @@ export class Grid {
     private generateSquareArray(){
         this.squares = [];
         for (let i = 0; i < 25; i++) {
-            this.squares.push(new Square(this.onMineClick));
+            this.squares.push(new Square(this.onMineClick, this.onSafeClick));
         }
     }
 }

@@ -1,8 +1,9 @@
 import { Square } from "./square.js";
 export class Grid {
-    constructor(onMineClick) {
+    constructor(onMineClick, onSafeClick) {
         this.squares = [];
         this.onMineClick = onMineClick || (() => { });
+        this.onSafeClick = onSafeClick || (() => { });
         this.generateSquareArray();
     }
     setMines(amount) {
@@ -43,7 +44,7 @@ export class Grid {
     generateSquareArray() {
         this.squares = [];
         for (let i = 0; i < 25; i++) {
-            this.squares.push(new Square(this.onMineClick));
+            this.squares.push(new Square(this.onMineClick, this.onSafeClick));
         }
     }
 }

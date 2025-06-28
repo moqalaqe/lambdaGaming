@@ -1,14 +1,19 @@
 export class Square {
-    constructor(onMineClick) {
+    constructor(onMineClick, onSafeClick) {
         this.isFlipped = false;
         this.isMine = false;
         this.onMineClick = null;
+        this.onSafeClick = null;
         this.element = this.createSquare();
         this.onMineClick = onMineClick || null;
+        this.onSafeClick = onSafeClick || null;
         this.element.addEventListener("click", () => {
             console.log(`Square clicked`);
             this.flipSquare();
             if (!this.isMine) {
+                if (this.onSafeClick) {
+                    this.onSafeClick();
+                }
                 this.element.style.backgroundColor = 'green';
             }
             else {

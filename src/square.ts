@@ -3,15 +3,20 @@ export class Square {
     private isMine: boolean = false;
     public element: HTMLDivElement;
     private onMineClick: (()=>void) | null = null;
+    private onSafeClick: (() => void) | null = null;
 
-    constructor(onMineClick?: () => void){
+    constructor(onMineClick?: () => void, onSafeClick?: () => void){
         this.element = this.createSquare();
         this.onMineClick = onMineClick || null;
+        this.onSafeClick = onSafeClick || null;
 
         this.element.addEventListener("click", () => {
             console.log(`Square clicked`);
             this.flipSquare();
             if(!this.isMine){
+                if(this.onSafeClick){
+                    this.onSafeClick();
+                }                
                 this.element.style.backgroundColor = 'green';
             } else {
                 this.element.style.backgroundColor = 'red';
