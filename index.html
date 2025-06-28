@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <title>mines</title>
+</head>
+<body>
+    <div class="game">
+        <select id="numberPicker"></select>
+        <div class="progress"></div>
+        <div id="board"></div>
+        <button id="startButton">Start Game</button>
+    </div>
+</body>
+<script>
+  const picker = document.getElementById("numberPicker");
+  const defaultOption = document.createElement("option");
+  defaultOption.text = "Amount of Mines";
+  defaultOption.value = "";
+  picker.appendChild(defaultOption);
+
+  for (let i = 1; i <= 20; i++) {
+    const option = document.createElement("option");
+    option.value = i;
+    option.text = i;
+    picker.appendChild(option);
+  }
+</script>
+
+<script type="module" src="./dist/main.js"></script>
+</html>
