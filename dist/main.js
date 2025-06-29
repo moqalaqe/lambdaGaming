@@ -18,10 +18,15 @@ window.addEventListener("DOMContentLoaded", () => {
     start.addEventListener("click", () => {
         const selectedMineValue = parseInt(numberPicker.value);
         if (selectedMineValue) {
-            tamashi.startGame(selectedMineValue);
-            randomButton.style.opacity = "1";
-            randomButton.style.pointerEvents = "auto";
-            randomButton.disabled = false;
+            if (!tamashi.isGameStarted) {
+                tamashi.startGame(selectedMineValue);
+                randomButton.style.opacity = "1";
+                randomButton.style.pointerEvents = "auto";
+                randomButton.disabled = false;
+            }
+            else {
+                tamashi.cashout();
+            }
         }
         else {
             console.log('select amount of mines!');
