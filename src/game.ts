@@ -3,30 +3,47 @@ import { Grid } from "./grid.js";
 export class Game {
     private grid: Grid;
     private mineAmount: number = 0;
-    private boardElement: HTMLElement | null = null;
+    private scoreValue: number = 300;
+    private coefValue: number = 1;
+
+    private board: HTMLElement;
     private startButton: HTMLButtonElement;
     private progressBar: HTMLElement;
     private progressBarContainer: HTMLElement;
+    private randomButton: HTMLElement;
+    private score: HTMLElement;
+    private coefficient: HTMLElement;
 
-
-    constructor(startButton: HTMLButtonElement) {
+    constructor(
+        board: HTMLElement,
+        startButton: HTMLButtonElement,
+        progressBar: HTMLElement,
+        progressBarContainer: HTMLElement,
+        randomButton: HTMLElement,
+        score: HTMLElement,
+        coefficient: HTMLElement
+    ) {
+        this.board = board;
         this.startButton = startButton;
+        this.progressBar = progressBar;
+        this.progressBarContainer = progressBarContainer;
+        this.randomButton = randomButton;
+        this.score = score;
+        this.coefficient = coefficient;
         this.grid = new Grid(this.endGame.bind(this), this.fillProgress.bind(this));
-        this.progressBar = document.getElementById("progressBar") as HTMLElement;
-        this.progressBarContainer = document.getElementById("progressBarContainer") as HTMLElement;
     }
 
     public renderGrid(board: HTMLElement){
         this.grid.render(board);
     }
 
-    public startGame(mineAmount: number, board: HTMLElement){
+    public startGame(mineAmount: number){
         this.mineAmount = mineAmount;
-        this.boardElement = board;
-        board.style.pointerEvents = "auto";
+        this.board.style.pointerEvents = "auto";        
         this.grid.setMines(mineAmount);
         this.startButton.style.opacity = "0.4";
         this.startButton.style.pointerEvents = "none";
+        this.updateScore();
     }
 
     private resetGame(){
@@ -35,23 +52,38 @@ export class Game {
         this.startButton.style.opacity = "1";
         this.startButton.style.pointerEvents = "auto";
         this.progressBar.style.width = `0px`;
+        this.coefficient.textContent = `Next: 1`;
+        this.coefValue = 1;
     }
 
     private endGame(){
-        if(this.boardElement){
-            this.boardElement.style.pointerEvents = "none";
-        }
+        this.board.style.pointerEvents = "none";
+        this.randomButton.style.opacity = "0.4";
+        this.randomButton.style.pointerEvents = "none";
         this.grid.openAllSquare();
         setTimeout(() => {
             this.resetGame();
-        }, 3000);
+        }, 2000);
+    }
+
+    public clickRandomSquare() {
+        this.grid.clickRandomSquare();
     }
 
     private fillProgress(){
-        console.log(this.progressBar.offsetWidth);
         const addWidth = this.progressBar.offsetWidth + (this.progressBarContainer.offsetWidth / (25 - this.mineAmount));
         this.progressBar.style.width = `${addWidth}px`;
+        this.updateCoef();
     }
 
+    private updateScore(){
+        this.scoreValue = Math.max(this.scoreValue - 10, 0);
+        this.score.textContent = `Score: ${this.scoreValue}`;
+    }
+
+    private updateCoef(){
+        this.coefValue += 0.2;
+        this.coefficient.textContent = `Next: ${this.coefValue.toFixed(2)}`;
+    }
 
 }

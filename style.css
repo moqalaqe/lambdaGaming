@@ -63,3 +63,22 @@ button:hover{
     transition: opacity 0.3s;
     position: relative;
 }
+
+.container{
+    width: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#coefficient, #score{
+    padding: 5px 20px;
+    border-radius: 12px;
+    background-color: #0267a5;
+    color: white;
+}
+
+#coefficient{
+    background-color: yellow;
+    color: black;
+}

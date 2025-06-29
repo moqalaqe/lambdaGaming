@@ -28,12 +28,20 @@ export class Grid {
         });
     }
 
-
     public openAllSquare(){
         this.squares.forEach(square => {
             square.flipSquare();
         });
     }
+
+    public clickRandomSquare() {
+        const unflipped = this.squares.filter(square => !square["isFlipped"]);
+        if (unflipped.length === 0) return;
+        const randId = Math.floor(Math.random() * unflipped.length);
+        const square = unflipped[randId];
+        square.element.click();
+    }
+
 
     public render(container: HTMLElement) {
         container.innerHTML = "";

@@ -26,6 +26,14 @@ export class Grid {
             square.flipSquare();
         });
     }
+    clickRandomSquare() {
+        const unflipped = this.squares.filter(square => !square["isFlipped"]);
+        if (unflipped.length === 0)
+            return;
+        const randId = Math.floor(Math.random() * unflipped.length);
+        const square = unflipped[randId];
+        square.element.click();
+    }
     render(container) {
         container.innerHTML = "";
         container.style.display = "grid";
