@@ -39,10 +39,10 @@ export class Grid {
         container.style.display = "grid";
         container.style.gridTemplateColumns = "repeat(5, 1fr)";
         container.style.gridTemplateRows = "repeat(5, 1fr)";
-        container.style.gap = "10px";
-        container.style.width = "100%";
-        container.style.height = "400px";
+        container.style.width = "455px";
+        container.style.height = "365px";
         container.style.pointerEvents = "none";
+        container.style.margin = "10px auto 15px";
         this.squares.forEach(square => {
             square.element.style.alignSelf = "center";
             square.element.style.justifySelf = "center";

@@ -45,8 +45,8 @@ export class Square {
     }
     createSquare() {
         const square = document.createElement("div");
-        square.style.width = `50px`;
-        square.style.height = `50px`;
+        square.style.width = `80px`;
+        square.style.height = `60px`;
         square.style.backgroundColor = '#123463';
         square.style.borderRadius = "10%";
         square.style.cursor = "pointer";

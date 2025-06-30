@@ -31,7 +31,7 @@ export class Game {
         this.grid.resetBoard();
         this.startButton.disabled = false;
         this.startButton.innerText = "Start Game";
-        this.startButton.style.backgroundColor = "#1d1294";
+        this.startButton.style.backgroundColor = "#2392d6";
         this.startButton.style.color = 'white';
         this.progressBar.style.width = `0px`;
         this.coefficient.textContent = `Next: 1`;
