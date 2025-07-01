@@ -8,28 +8,18 @@ window.addEventListener("DOMContentLoaded", () => {
     const progressBarContainer = document.getElementById("progressBarContainer");
     const score = document.getElementById("score");
     const coef = document.getElementById("coefficient");
-    const tamashi = new Game(board, start, progressBar, progressBarContainer, randomButton, score, coef);
+    const hintButton = document.getElementById("hintButton");
+    const tamashi = new Game(numberPicker, board, start, progressBar, progressBarContainer, randomButton, score, coef, hintButton);
     tamashi.renderGrid(board);
-    start.style.opacity = "0.4";
-    start.style.pointerEvents = "none";
-    randomButton.style.opacity = "0.4";
-    randomButton.style.pointerEvents = "none";
-    randomButton.disabled = true;
     start.addEventListener("click", () => {
         const selectedMineValue = parseInt(numberPicker.value);
         if (selectedMineValue) {
             if (!tamashi.isGameStarted) {
                 tamashi.startGame(selectedMineValue);
-                randomButton.style.opacity = "1";
-                randomButton.style.pointerEvents = "auto";
-                randomButton.disabled = false;
             }
             else {
                 tamashi.cashout();
             }
-        }
-        else {
-            console.log('select amount of mines!');
         }
     });
     numberPicker.addEventListener("change", () => {
@@ -45,7 +35,12 @@ window.addEventListener("DOMContentLoaded", () => {
             start.disabled = true;
         }
     });
+    randomButton.disabled = true;
     randomButton.addEventListener("click", () => {
         tamashi.clickRandomSquare();
+    });
+    hintButton.disabled = true;
+    hintButton.addEventListener("click", () => {
+        tamashi.hint();
     });
 });

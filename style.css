@@ -45,8 +45,10 @@ select{
 }
 
 #coefficient, #score{
+    min-width: 110px;
     padding: 5px 20px;
     border-radius: 12px;
+    text-align: center;
     background-color: #2392d6;
 }
 
@@ -91,9 +93,11 @@ button{
     height: 40px;
     border: 0;
     border-radius: 12px;
+    opacity: 0.4;
     color: white;
     background-color: #2392d6;
     cursor: pointer;
+    pointer-events: none;
 }
 
 button:hover{
@@ -103,14 +107,7 @@ button:hover{
 
 .flipped {
     border: 1px dashed white;
-    pointer-events: none;
 }
-/* #board.disabled {
-    opacity: 0.4;
-    pointer-events: none;
-    transition: opacity 0.3s;
-    position: relative;
-} */
 
 @media screen and (max-width: 767px){
     .game{

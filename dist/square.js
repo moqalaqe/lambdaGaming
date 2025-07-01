@@ -43,6 +43,10 @@ export class Square {
         this.element.classList.remove("flipped");
         this.element.style.backgroundColor = '#123463';
     }
+    hint() {
+        this.element.classList.add("flipped");
+        console.log('here');
+    }
     createSquare() {
         const square = document.createElement("div");
         square.style.width = `80px`;

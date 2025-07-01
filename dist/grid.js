@@ -34,20 +34,28 @@ export class Grid {
         const square = unflipped[randId];
         square.element.click();
     }
-    render(container) {
-        container.innerHTML = "";
-        container.style.display = "grid";
-        container.style.gridTemplateColumns = "repeat(5, 1fr)";
-        container.style.gridTemplateRows = "repeat(5, 1fr)";
-        container.style.width = "455px";
-        container.style.height = "365px";
-        container.style.pointerEvents = "none";
-        container.style.margin = "10px auto 15px";
+    render(board) {
+        board.innerHTML = "";
+        board.style.display = "grid";
+        board.style.gridTemplateColumns = "repeat(5, 1fr)";
+        board.style.gridTemplateRows = "repeat(5, 1fr)";
+        board.style.width = "455px";
+        board.style.height = "365px";
+        board.style.pointerEvents = "none";
+        board.style.margin = "10px auto 15px";
         this.squares.forEach(square => {
             square.element.style.alignSelf = "center";
             square.element.style.justifySelf = "center";
-            container.appendChild(square.element);
+            board.appendChild(square.element);
         });
+    }
+    hint() {
+        const available = this.squares.filter(square => !square["isFlipped"] && !square["isMine"]);
+        if (available.length === 0)
+            return;
+        const randomIndex = Math.floor(Math.random() * available.length);
+        const hintSquare = available[randomIndex];
+        hintSquare.hint();
     }
     generateSquareArray() {
         this.squares = [];
