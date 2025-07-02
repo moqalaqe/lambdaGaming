@@ -88,9 +88,6 @@ export class Game {
                 }
             }
         }
-        else {
-            console.log('game is not started!');
-        }
     }
     decreaseScore() {
         this.scoreValue = Math.max(this.scoreValue - 10, 0);

@@ -122,8 +122,6 @@ export class Game {
                     this.activateHintBtn();
                 }
             }
-        } else {
-            console.log('game is not started!');
         }
     }
 

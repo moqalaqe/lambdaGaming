@@ -2,6 +2,7 @@ export class Square {
     private isFlipped: boolean = false;
     private isMine: boolean = false;
     public element: HTMLDivElement;
+    private backDiv: HTMLDivElement | null = null;
     private onMineClick: (()=>void) | null = null;
     private onSafeClick: (() => void) | null = null;
 
@@ -14,19 +15,10 @@ export class Square {
             if(!this.isFlipped){
                 this.flipSquare();
                 if(!this.isMine){
-                    if(this.onSafeClick){
-                        this.onSafeClick();
-                    }                
-                    this.element.style.backgroundColor = 'green';
+                    if(this.onSafeClick) this.onSafeClick();               
                 } else {
-                    this.element.style.backgroundColor = 'red';
-                    if(this.onMineClick){
-                        this.onMineClick();
-                    }
+                    if(this.onMineClick) this.onMineClick();
                 }
-            } else {
-                console.log('already clicked');
-                
             }
         });
     }
@@ -34,28 +26,30 @@ export class Square {
     public flipSquare(){
         this.isFlipped = true;
         this.element.classList.add("flipped");
+        this.element.classList.add("flip");
         if(!this.isMine){
-            this.element.style.backgroundColor = 'green';
+            this.element.style.backgroundColor = '#d7a611';
         } else {
-            this.element.style.backgroundColor = 'red';
+            this.element.style.backgroundColor = '#a82626';
         }
     }
 
     public setMine(){
         this.isMine = true;
+        if (this.backDiv) this.backDiv.style.backgroundImage = "url('assets/bomb.png')";
     }
 
     public reset() {
         this.isFlipped = false;
         this.isMine = false;
         this.element.classList.remove("flipped");
+        this.element.classList.remove("flip");
         this.element.style.backgroundColor = '#123463';
+        if(this.backDiv) this.backDiv.style.backgroundImage = "url('assets/star.ico')";
     }
 
     public hint() {
         this.element.classList.add("flipped");
-        console.log('here');
-        
     }
 
     private createSquare(): HTMLDivElement {
@@ -65,7 +59,16 @@ export class Square {
         square.style.backgroundColor = '#123463';
         square.style.borderRadius = "10%";
         square.style.cursor = "pointer";
+        square.className = 'card-inner'
 
+        const front = document.createElement("div");
+        const back = document.createElement("div");
+        front.className = "front";
+        back.className = "back";
+        this.backDiv = back;
+
+        square.appendChild(front);
+        square.appendChild(back);
         return square;
     }
 }
