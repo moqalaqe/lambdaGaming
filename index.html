@@ -10,7 +10,7 @@
     <div class="game">
       <div class="header">
         <select id="numberPicker"></select>
-        <div id="score">Score: 300</div>
+        <div id="totalCoins">Score: 100</div>
         <div id="coefficient">Next: 1x</div>
       </div>
       <!----- ----->
@@ -20,18 +20,22 @@
       <!----- ----->
       <div id="board"></div>
       <!----- ----->
-      <div class="footer">
+      <div class="gameButtons">
         <button id="hintButton">Hint</button>
         <button id="randomButton">Random</button>
+      </div>
+      <!----- ----->
+      <div class="footer">
+        <div id="betContainer" class="bet">
+          <button id="decreaseBtn">-</button>
+          <div>
+            <p id="betValue">10</p>
+          </div>
+          <button id="increaseBtn">+</button>
+        </div>
         <button id="startButton">Start Game</button>
       </div>
-    </div>
-
-    <div class="card" onclick="this.classList.toggle('flip')">
-      <div class="card-inner">
-        <div class="front"></div>
-        <div class="back"></div>
-      </div>
+      <!----- ----->
     </div>
 </body>
 <script>
@@ -49,5 +53,6 @@
   }
 </script>
 
+<script type="module" src="./dist/bet.js"></script>
 <script type="module" src="./dist/main.js"></script>
 </html>

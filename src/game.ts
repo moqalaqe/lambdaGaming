@@ -3,37 +3,36 @@ import { Grid } from "./grid.js";
 export class Game {
     public isGameStarted: boolean = false;
     private mineAmount: number = 0;
-    private scoreValue: number = 300;
+    private totalCoins: number = 100;
     private coefValue: number = 1;
     private cashoutValue: number = 0;
     private isHintUsed: boolean = false;
+    private betAmount: number = 10;
 
     private grid: Grid;
-
     private numberPicker: HTMLButtonElement;
     private score: HTMLElement;
     private coefficient: HTMLElement;
-
     private progressBarContainer: HTMLElement;
     private progressBar: HTMLElement;
-
     private board: HTMLElement;
-
     private hintButton: HTMLButtonElement;
     private randomButton: HTMLButtonElement;
     private startButton: HTMLButtonElement;
 
+    private betContainer: HTMLElement;
     
     constructor(
         numberPicker: HTMLButtonElement,
-        board: HTMLElement,
-        startButton: HTMLButtonElement,
-        progressBar: HTMLElement,
-        progressBarContainer: HTMLElement,
-        randomButton: HTMLButtonElement,
         score: HTMLElement,
         coefficient: HTMLElement,
-        hintButton: HTMLButtonElement
+        progressBarContainer: HTMLElement,
+        progressBar: HTMLElement,
+        board: HTMLElement,
+        hintButton: HTMLButtonElement,
+        randomButton: HTMLButtonElement,
+        startButton: HTMLButtonElement,
+        betContainer: HTMLElement
     ) {
         this.numberPicker = numberPicker;
         this.board = board;
@@ -45,15 +44,17 @@ export class Game {
         this.coefficient = coefficient;
         this.grid = new Grid(this.endGame.bind(this), this.fillProgress.bind(this));
         this.hintButton = hintButton;
+        this.betContainer = betContainer;
     }
 
     public renderGrid(board: HTMLElement){
         this.grid.render(board);
     }
 
-    public startGame(mineAmount: number){
+    public startGame(mineAmount: number, betAmount: number){
         this.isGameStarted = true;
         this.mineAmount = mineAmount;
+        this.betAmount = betAmount;
         this.numberPicker.disabled = true;
         this.numberPicker.style.pointerEvents = "none";
         this.board.style.pointerEvents = "auto";
@@ -63,8 +64,11 @@ export class Game {
         this.randomButton.disabled = false;
         this.startButton.style.opacity = "0.4";
         this.startButton.style.pointerEvents = "none";
+        this.betContainer.style.pointerEvents = "none";
+        this.betContainer.style.opacity = "0.4";
         this.grid.setMines(mineAmount);
         this.decreaseScore();
+        console.log(this.betContainer);
     }
 
     private endGame(){
@@ -98,12 +102,14 @@ export class Game {
         this.startButton.style.color = 'white';
         this.startButton.style.opacity = "1";
         this.startButton.style.pointerEvents = "auto";
+        this.betContainer.style.pointerEvents = "auto";
+        this.betContainer.style.opacity = "1";
         this.coefValue = 1;
     }
 
     public cashout(){
-        this.scoreValue = this.cashoutValue + this.scoreValue;
-        this.score.innerText = `Score: ${this.scoreValue}`;
+        this.totalCoins = this.cashoutValue + this.totalCoins;
+        this.score.innerText = `Score: ${this.totalCoins}`;
         this.endGame();
     }
 
@@ -126,8 +132,8 @@ export class Game {
     }
 
     private decreaseScore(){
-        this.scoreValue = Math.max(this.scoreValue - 10, 0);
-        this.score.textContent = `Score: ${this.scoreValue}`;
+        this.totalCoins = Math.max(this.totalCoins - this.betAmount, 0);
+        this.score.textContent = `Score: ${this.totalCoins}`;
     }
 
     private nextCoef(){
@@ -136,7 +142,7 @@ export class Game {
     }
 
     private activateCashoutBtn(){
-        this.cashoutValue = 10 * (this.coefValue - 0.2);
+        this.cashoutValue = this.betAmount * (this.coefValue - 0.2);
         this.startButton.textContent = `Cashout: ${this.cashoutValue.toFixed(2)}`
         this.startButton.style.opacity = "1";
         this.startButton.style.backgroundColor = 'yellow';

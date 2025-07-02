@@ -1,12 +1,13 @@
 import { Grid } from "./grid.js";
 export class Game {
-    constructor(numberPicker, board, startButton, progressBar, progressBarContainer, randomButton, score, coefficient, hintButton) {
+    constructor(numberPicker, score, coefficient, progressBarContainer, progressBar, board, hintButton, randomButton, startButton, betContainer) {
         this.isGameStarted = false;
         this.mineAmount = 0;
-        this.scoreValue = 300;
+        this.totalCoins = 100;
         this.coefValue = 1;
         this.cashoutValue = 0;
         this.isHintUsed = false;
+        this.betAmount = 10;
         this.numberPicker = numberPicker;
         this.board = board;
         this.startButton = startButton;
@@ -17,13 +18,15 @@ export class Game {
         this.coefficient = coefficient;
         this.grid = new Grid(this.endGame.bind(this), this.fillProgress.bind(this));
         this.hintButton = hintButton;
+        this.betContainer = betContainer;
     }
     renderGrid(board) {
         this.grid.render(board);
     }
-    startGame(mineAmount) {
+    startGame(mineAmount, betAmount) {
         this.isGameStarted = true;
         this.mineAmount = mineAmount;
+        this.betAmount = betAmount;
         this.numberPicker.disabled = true;
         this.numberPicker.style.pointerEvents = "none";
         this.board.style.pointerEvents = "auto";
@@ -33,8 +36,11 @@ export class Game {
         this.randomButton.disabled = false;
         this.startButton.style.opacity = "0.4";
         this.startButton.style.pointerEvents = "none";
+        this.betContainer.style.pointerEvents = "none";
+        this.betContainer.style.opacity = "0.4";
         this.grid.setMines(mineAmount);
         this.decreaseScore();
+        console.log(this.betContainer);
     }
     endGame() {
         this.isGameStarted = false;
@@ -66,11 +72,13 @@ export class Game {
         this.startButton.style.color = 'white';
         this.startButton.style.opacity = "1";
         this.startButton.style.pointerEvents = "auto";
+        this.betContainer.style.pointerEvents = "auto";
+        this.betContainer.style.opacity = "1";
         this.coefValue = 1;
     }
     cashout() {
-        this.scoreValue = this.cashoutValue + this.scoreValue;
-        this.score.innerText = `Score: ${this.scoreValue}`;
+        this.totalCoins = this.cashoutValue + this.totalCoins;
+        this.score.innerText = `Score: ${this.totalCoins}`;
         this.endGame();
     }
     clickRandomSquare() {
@@ -90,15 +98,15 @@ export class Game {
         }
     }
     decreaseScore() {
-        this.scoreValue = Math.max(this.scoreValue - 10, 0);
-        this.score.textContent = `Score: ${this.scoreValue}`;
+        this.totalCoins = Math.max(this.totalCoins - this.betAmount, 0);
+        this.score.textContent = `Score: ${this.totalCoins}`;
     }
     nextCoef() {
         this.coefValue += 0.2;
         this.coefficient.textContent = `Next: ${this.coefValue.toFixed(2)}`;
     }
     activateCashoutBtn() {
-        this.cashoutValue = 10 * (this.coefValue - 0.2);
+        this.cashoutValue = this.betAmount * (this.coefValue - 0.2);
         this.startButton.textContent = `Cashout: ${this.cashoutValue.toFixed(2)}`;
         this.startButton.style.opacity = "1";
         this.startButton.style.backgroundColor = 'yellow';

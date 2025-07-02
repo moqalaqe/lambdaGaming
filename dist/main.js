@@ -6,16 +6,19 @@ window.addEventListener("DOMContentLoaded", () => {
     const randomButton = document.getElementById("randomButton");
     const progressBar = document.getElementById("progressBar");
     const progressBarContainer = document.getElementById("progressBarContainer");
-    const score = document.getElementById("score");
+    const totalCoins = document.getElementById("totalCoins");
     const coef = document.getElementById("coefficient");
     const hintButton = document.getElementById("hintButton");
-    const tamashi = new Game(numberPicker, board, start, progressBar, progressBarContainer, randomButton, score, coef, hintButton);
+    const betAmountElement = document.getElementById("betValue");
+    const betContainer = document.getElementById("betContainer");
+    const tamashi = new Game(numberPicker, totalCoins, coef, progressBarContainer, progressBar, board, hintButton, randomButton, start, betContainer);
     tamashi.renderGrid(board);
     start.addEventListener("click", () => {
         const selectedMineValue = parseInt(numberPicker.value);
         if (selectedMineValue) {
             if (!tamashi.isGameStarted) {
-                tamashi.startGame(selectedMineValue);
+                const betAmount = parseInt(betAmountElement.textContent || "10");
+                tamashi.startGame(selectedMineValue, betAmount);
             }
             else {
                 tamashi.cashout();

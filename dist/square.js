@@ -25,18 +25,18 @@ export class Square {
     flipSquare() {
         this.isFlipped = true;
         this.element.classList.add("flipped");
-        this.element.classList.add("flip");
         if (!this.isMine) {
             this.element.style.backgroundColor = '#d7a611';
         }
         else {
             this.element.style.backgroundColor = '#a82626';
+            if (this.backDiv)
+                this.backDiv.style.backgroundImage = "url('assets/bomb.png')";
         }
+        this.element.classList.add("flip");
     }
     setMine() {
         this.isMine = true;
-        if (this.backDiv)
-            this.backDiv.style.backgroundImage = "url('assets/bomb.png')";
     }
     reset() {
         this.isFlipped = false;
