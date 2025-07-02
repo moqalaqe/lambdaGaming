@@ -80,6 +80,7 @@ export class Game {
         this.startButton.style.opacity = "0.4";
         this.startButton.style.pointerEvents = "none";
         this.grid.openAllSquare();
+        this.board.style.pointerEvents = "none";
         setTimeout(() => {
             this.resetGame();
         }, 2000);
@@ -111,14 +112,18 @@ export class Game {
     }
 
     private fillProgress(){
-        const addWidth = this.progressBar.offsetWidth + (this.progressBarContainer.offsetWidth / (25 - this.mineAmount));
-        this.progressBar.style.width = `${addWidth}px`;
-        this.nextCoef();
-        if(this.coefValue > 1) {
-            this.activateCashoutBtn();
-            if(!this.isHintUsed){
-                this.activateHintBtn();
+        if(this.isGameStarted){
+            const addWidth = this.progressBar.offsetWidth + (this.progressBarContainer.offsetWidth / (25 - this.mineAmount));
+            this.progressBar.style.width = `${addWidth}px`;
+            this.nextCoef();
+            if(this.coefValue > 1) {
+                this.activateCashoutBtn();
+                if(!this.isHintUsed){
+                    this.activateHintBtn();
+                }
             }
+        } else {
+            console.log('game is not started!');
         }
     }
 

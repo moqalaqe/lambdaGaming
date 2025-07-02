@@ -11,18 +11,22 @@ export class Square {
         this.onSafeClick = onSafeClick || null;
 
         this.element.addEventListener("click", () => {
-            console.log(`Square clicked`);
-            this.flipSquare();
-            if(!this.isMine){
-                if(this.onSafeClick){
-                    this.onSafeClick();
-                }                
-                this.element.style.backgroundColor = 'green';
-            } else {
-                this.element.style.backgroundColor = 'red';
-                if(this.onMineClick){
-                    this.onMineClick();
+            if(!this.isFlipped){
+                this.flipSquare();
+                if(!this.isMine){
+                    if(this.onSafeClick){
+                        this.onSafeClick();
+                    }                
+                    this.element.style.backgroundColor = 'green';
+                } else {
+                    this.element.style.backgroundColor = 'red';
+                    if(this.onMineClick){
+                        this.onMineClick();
+                    }
                 }
+            } else {
+                console.log('already clicked');
+                
             }
         });
     }

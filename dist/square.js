@@ -8,19 +8,23 @@ export class Square {
         this.onMineClick = onMineClick || null;
         this.onSafeClick = onSafeClick || null;
         this.element.addEventListener("click", () => {
-            console.log(`Square clicked`);
-            this.flipSquare();
-            if (!this.isMine) {
-                if (this.onSafeClick) {
-                    this.onSafeClick();
+            if (!this.isFlipped) {
+                this.flipSquare();
+                if (!this.isMine) {
+                    if (this.onSafeClick) {
+                        this.onSafeClick();
+                    }
+                    this.element.style.backgroundColor = 'green';
                 }
-                this.element.style.backgroundColor = 'green';
+                else {
+                    this.element.style.backgroundColor = 'red';
+                    if (this.onMineClick) {
+                        this.onMineClick();
+                    }
+                }
             }
             else {
-                this.element.style.backgroundColor = 'red';
-                if (this.onMineClick) {
-                    this.onMineClick();
-                }
+                console.log('already clicked');
             }
         });
     }
