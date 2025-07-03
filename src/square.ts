@@ -37,6 +37,7 @@ export class Square {
 
     public setMine(){
         this.isMine = true;
+                this.element.classList.add("flipped");
     }
 
     public reset() {

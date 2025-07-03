@@ -143,6 +143,11 @@ export class Game {
                     this.activateHintBtn();
                 }
             }
+            const percent = (this.progressBar.offsetWidth / this.progressBarContainer.offsetWidth) * 100;            
+            if(percent > 98){
+                this.cashout();
+            }
+
         }
     }
 
