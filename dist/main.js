@@ -46,4 +46,11 @@ window.addEventListener("DOMContentLoaded", () => {
     hintButton.addEventListener("click", () => {
         tamashi.hint();
     });
+    betContainer.addEventListener("click", (event) => {
+        const target = event.target;
+        const betAmount = parseInt(betAmountElement.textContent || "10");
+        if (target.id === "increaseBtn" || target.id === "decreaseBtn") {
+            tamashi.checkBet(betAmount);
+        }
+    });
 });

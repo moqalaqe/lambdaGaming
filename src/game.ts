@@ -68,7 +68,6 @@ export class Game {
         this.betContainer.style.opacity = "0.4";
         this.grid.setMines(mineAmount);
         this.decreaseScore();
-        console.log(this.betContainer);
     }
 
     private endGame(){
@@ -105,16 +104,32 @@ export class Game {
         this.betContainer.style.pointerEvents = "auto";
         this.betContainer.style.opacity = "1";
         this.coefValue = 1;
+        this.checkBet(this.betAmount);
     }
 
-    public cashout(){
-        this.totalCoins = this.cashoutValue + this.totalCoins;
+    public cashout() {
+        this.totalCoins = Math.floor(this.cashoutValue + this.totalCoins);
         this.score.innerText = `Score: ${this.totalCoins}`;
         this.endGame();
     }
 
     public clickRandomSquare() {
         this.grid.clickRandomSquare();
+    }
+
+    public checkBet(betAmount: number) {
+        if(this.mineAmount > 0){
+            if ((betAmount > this.totalCoins)) {
+                this.startButton.style.pointerEvents = "none";
+                this.startButton.disabled = true;
+                this.startButton.innerText = "Not Enough Coins";
+            } else {
+                this.startButton.style.opacity = "1";
+                this.startButton.style.pointerEvents = "auto";
+                this.startButton.disabled = false;
+                this.startButton.innerText = "Start Game";
+            }
+        }
     }
 
     private fillProgress(){
@@ -131,8 +146,8 @@ export class Game {
         }
     }
 
-    private decreaseScore(){
-        this.totalCoins = Math.max(this.totalCoins - this.betAmount, 0);
+    private decreaseScore() {
+        this.totalCoins = Math.max(Math.floor(this.totalCoins - this.betAmount), 0);
         this.score.textContent = `Score: ${this.totalCoins}`;
     }
 

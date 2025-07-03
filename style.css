@@ -2,7 +2,6 @@
     box-sizing: border-box;
 }
 body{
-    /* background-color: #0153d8; */
     background-color: black;
     height: 100vh;
     margin: 0;
@@ -14,7 +13,6 @@ body{
 }
 
 .game{
-    /* height: 530px; */
     max-width: 950px;
     min-width: 765px;
     width: 100%;
