@@ -37,7 +37,6 @@ export class Square {
 
     public setMine(){
         this.isMine = true;
-                this.element.classList.add("flipped");
     }
 
     public reset() {
@@ -61,13 +60,11 @@ export class Square {
         square.style.borderRadius = "10%";
         square.style.cursor = "pointer";
         square.className = 'card-inner'
-
         const front = document.createElement("div");
         const back = document.createElement("div");
         front.className = "front";
         back.className = "back";
         this.backDiv = back;
-
         square.appendChild(front);
         square.appendChild(back);
         return square;

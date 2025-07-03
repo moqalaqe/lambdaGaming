@@ -8,7 +8,6 @@ export class Game {
     private cashoutValue: number = 0;
     private isHintUsed: boolean = false;
     private betAmount: number = 10;
-
     private grid: Grid;
     private numberPicker: HTMLButtonElement;
     private score: HTMLElement;
@@ -19,7 +18,6 @@ export class Game {
     private hintButton: HTMLButtonElement;
     private randomButton: HTMLButtonElement;
     private startButton: HTMLButtonElement;
-
     private betContainer: HTMLElement;
     
     constructor(
@@ -182,5 +180,4 @@ export class Game {
         this.hintButton.style.opacity = "0.4";
         this.hintButton.style.pointerEvents = "none";
     }
-
 }
