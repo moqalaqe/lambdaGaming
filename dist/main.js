@@ -30,12 +30,10 @@ window.addEventListener("DOMContentLoaded", () => {
         if (selectedValue) {
             start.style.opacity = "1";
             start.style.pointerEvents = "auto";
-            start.disabled = false;
         }
         else {
             start.style.opacity = "0.4";
             start.style.pointerEvents = "none";
-            start.disabled = true;
         }
     });
     randomButton.disabled = true;
